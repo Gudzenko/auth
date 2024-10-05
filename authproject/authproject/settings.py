@@ -127,6 +127,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'prodstaticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'authapp.CustomUser'
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'login'
+
+AUTHENTICATION_BACKENDS = [
+    'authapp.auth_backends.EmailOrUsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -144,7 +154,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'reception.log',
+            'filename': 'auth.log',
             'formatter': 'verbose',
         },
         'console': {
