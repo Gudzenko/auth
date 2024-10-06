@@ -33,6 +33,7 @@
                         <span class="d-inline">Logged in as {{ user.username }}</span>
                     {% else %}
                         <a class="nav-link d-inline" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link d-inline" href="{% url 'register' %}">Register</a>
                     {% endif %}
                 </span>
             </div>

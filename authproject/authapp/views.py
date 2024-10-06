@@ -1,10 +1,11 @@
 from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 from .models import CustomUser
-from .forms import CustomLoginForm
+from .forms import CustomLoginForm, CustomUserCreationForm
 from .mixins import AddUserGroupContextMixin
 
 
@@ -45,3 +46,12 @@ class AdminManageUsersView(AddUserGroupContextMixin, ListView):
 
     def get_queryset(self):
         return CustomUser.objects.all()
+
+
+class UserRegistrationView(CreateView):
+    template_name = 'authapp/register.html'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
